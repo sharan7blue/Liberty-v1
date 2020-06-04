@@ -1,28 +1,20 @@
 {
   "private": true,
-  "name": "platform-liberty",
+  "name": "sanity-gatsby-blog",
   "version": "1.0.13",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "build": "lerna run build --parallel",
-    "dev": "lerna run dev --parallel",
-    "format": "lerna run format",
-    "build-studio": "lerna bootstrap && cd studio && npm run build",
-    "build-web": "lerna bootstrap && (cd studio && SANITY_AUTH_TOKEN=$SANITY_DEPLOY_STUDIO_TOKEN npm run graphql-deploy) && (cd web && npm run build)",
+    "build-studio": "lerna bootstrap && cd packages/studio && yarn run build",
+    "build-web": "lerna bootstrap && (cd packages/studio && yarn run graphql-deploy) && (cd packages/tl-ph && yarn run build)",
     "graphql-deploy": "lerna run graphql-deploy",
+    "format": "lerna run format",
     "lint": "lerna run lint",
-    "postinstall": "lerna bootstrap",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "postinstall": "lerna bootstrap"
   },
   "devDependencies": {
     "@sanity/cli": "^1.149.9",
     "lerna": "^3.13.1"
-  },
-  "dependencies": {
-    "@sanity/production-preview": "^1.149.0",
-    "font-awesome": "^4.7.0",
-    "get-youtube-id": "^1.0.1",
-    "react": "^16.13.1",
-    "react-icons": "^3.10.0",
-    "react-youtube": "^7.11.2"
   }
 }

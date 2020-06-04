@@ -1,39 +1,35 @@
-# Test Blog Sanity
+# Liberty portal template
 
-_Fully customizable blog template with a React.js front-end._
+This repo includes several packages:
+1. `studio` - sanity studio
+2. `gatsby-theme-portal` - Gatsby theme for the portal
+3. `tl-ph` - Gatsby website, based on `gatsby-theme-portal`
 
-Deployed from [sanity.io/create](https://www.sanity.io/create/?template=sanity-io%2Fsanity-template-gatsby-blog).
+## Configuration
 
-## What you have
+1. `studio` currently includes hardcoded config (sanityId - *8azq2eb8*), can be changed on `packages/studio/sanity.json:7`
+2. `tl-ph` supports configuration files (`packages/tl-ph/.env.tl-ph`, `packages/tl-ph/.env.develop`) where you can specify required env vars.
 
-- A blazing fast blog with [Gatsby.js](https://gatsbyjs.org)
-- Structured content using [Sanity.io](https://www.sanity.io)
-- Global deployment on [Netlify](https://netlify.com)
+`.env.development` should contain sanity projectId and datataset name (sanityToken is optional), e.g:
 
-## Quick start
+```
+app_local_sanityId = "8azq2eb8"
+app_local_sanityDataset = "production"
+app_local_sanityToken = "yourTokenValue"
+```
 
-1. Clone this repository
-2. `npm install` in the project root folder on local
-3. `npm run dev` to start the studio and frontend locally
-   - Your studio should be running on [http://localhost:3333](http://localhost:3333)
-   - Your frontend should be running on [http://localhost:8000](http://localhost:8000)
-4. `npm run build` to build to production locally
+# Installation
 
-## Enable real-time content preview on development
+1. run `yarn` from repo root
+2. put `.env.development` file with proper sanity details
+2. that's it :)
 
-1. Go to your [project’s API settings on manage.sanity.io](https://manage.sanity.io/projects/e1mdz151/settings/api) and create a token with read rights.
-2. Rename `.env.development.template` to `.env.development` and paste in the token: `SANITY_READ_TOKEN="yourTokenHere"`.
-3. fill the Project id and Dataset Id in `.env.development` from `.env.production` to use the same project and dataset on your local machine.
-4. Restart the development server (`ctrl + C` and `npm run dev`).
+## Commands
 
-If you want to turn off preview you can set `watchMode: false` in gatsby-config.js. If you just want to preview published changes you can set `overlayDrafts: false` in gatsby-config.js.
-
-## Deploy changes
-
-Netlify automatically deploys new changes commited to master on GitHub. If you want to change deployment branch, do so in [build & deploy settings on Netlify](https://www.netlify.com/docs/continuous-deployment/#branches-deploys).
-
-## Stuck? Get help
-
-[![Slack Community Button](https://slack.sanity.io/badge.svg)](https://slack.sanity.io/)
-
-Join [Sanity’s developer community](https://slack.sanity.io) or ping us [on twitter](https://twitter.com/sanity_io).
+1. Run gatsby website: `yarn workspace tl-ph develop`
+2. Run sanity studio: `yarn workspace platform-liberty-studio dev`
+3. Deploy sanity studio: `yarn workspace platform-liberty-studio deploy`
+Changes will be deployed to **sanity.studio* domain
+4. Deploy sanity graphql: `yarn workspace platform-liberty-studio graphql-deploy`
+Grapqh will be updated at the playground:
+*https://<sanityid>.api.sanity.io/v1/graphql/<datasetName>/default*
